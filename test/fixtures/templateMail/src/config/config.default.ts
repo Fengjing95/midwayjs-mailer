@@ -1,6 +1,6 @@
 export const mailer = {
   host: 'smtp.qq.com',
-  secureConnection: true,
+  secure: true,
   auth: {
     user: 'youremail@xx.com',
     pass: 'xxxx',

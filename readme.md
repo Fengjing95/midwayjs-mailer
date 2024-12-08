@@ -5,7 +5,7 @@
 #### 安装使用
 
 ```bash
-$ npm install nodemailer @feng-j/midwayjs-mailer
+$ npm install nodemailer @types/nodemailer @feng-j/midwayjs-mailer
 ```
 在configuration中引入mailer
 
@@ -38,7 +38,7 @@ export default {
   // ......
   mailer: {
     host: 'smtp.qq.com',
-    secureConnection: true,
+    secure: true,
     auth: {
         user: 'xxx@xx.com',
         pass: 'xxx'
