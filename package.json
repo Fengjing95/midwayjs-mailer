@@ -5,7 +5,7 @@
   "homepage": "https://github.com/Fengjing95/midwayjs-mailer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Fengjing95/midwayjs-mailer"
+    "url": "git+https://github.com/Fengjing95/midwayjs-mailer.git"
   },
   "publishConfig": {
     "access": "public",
