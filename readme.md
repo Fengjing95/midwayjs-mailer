@@ -129,6 +129,7 @@ $ pnpm i ejs
 import { Inject, Controller, Get, Query } from '@midwayjs/core';
 import { Context } from '@midwayjs/koa';
 import { MailerService } from '@feng-j/midwayjs-mailer';
+import { join } from 'path';
 
 @Controller('/api')
 export class APIController {
