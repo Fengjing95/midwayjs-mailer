@@ -81,6 +81,24 @@ export class APIController {
 
 除了基本文本内容邮件的发送，还可以在邮件中嵌入HTML内容，通过模板引擎渲染，目前支持`ejs`模板引擎的渲染。(如果要是用其他的模板引擎，可以将渲染完成的htmlStr手动传入。）
 
+配置文件中开启模板渲染的支持
+
+```ts
+export default {
+  // ......
+  mailer: {
+    host: 'smtp.qq.com',
+    secure: true,
+    auth: {
+        user: 'xxx@xx.com',
+        pass: 'xxx'
+    },
+    template: 'ejs',
+  },
+} as MidwayConfig;
+
+```
+
 需要额外安装ejs的依赖库
 
 ```bash
