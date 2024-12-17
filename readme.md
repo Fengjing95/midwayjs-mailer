@@ -93,7 +93,7 @@ export default {
         user: 'xxx@xx.com',
         pass: 'xxx'
     },
-    template: 'ejs',
+    template: TemplateType.EJS,
   },
 } as MidwayConfig;
 
