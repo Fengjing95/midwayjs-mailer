@@ -15,7 +15,7 @@ export type MailerConfigurationType = {
   prefix?: string;
   customSubjectRender?: (prefix: string, subject: string) => string;
   template?: TemplateType;
-  customRender?: ITemplateRender;
+  // customRender?: ITemplateRender;
   sender?: string;
 } & Options;
 
