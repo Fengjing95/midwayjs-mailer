@@ -68,9 +68,11 @@ export class MailerService {
     // 消息对象
     const msg = {
       ...message,
-      from: this.config.sender
-        ? `${this.config.sender} <${this.config.auth.user}>`
-        : message.from,
+      from: message.from
+        ? message.from
+        : this.config.sender
+          ? `${this.config.sender} <${this.config.auth.user}>`
+          : this.config.auth.user,
       html: htmlStr,
       subject: this.config.prefix
         ? this.config.customSubjectRender?.(
