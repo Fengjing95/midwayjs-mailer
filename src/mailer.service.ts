@@ -8,8 +8,7 @@ import {
 } from '@midwayjs/core';
 import { Transporter, SendMailOptions } from 'nodemailer';
 import { MailerConfigurationType } from '../';
-import { readFile } from 'node:fs/promises';
-import ejs = require('ejs');
+import { templateRender, templateStringRender } from './utils';
 
 @Provide()
 export class MailerService {
@@ -24,21 +23,30 @@ export class MailerService {
 
   /**
    * 渲染模板
-   * @param tplString 模板字符串
+   * @param template 模板字符串
    * @param record 数据
    * @private
    */
-  private renderTemplate(tplString: string, record: Record<string, unknown>) {
-    let html = '';
-
-    if (!tplString) {
+  private async renderString(
+    template: string,
+    record: Record<string, unknown> = {}
+  ) {
+    if (!template) {
       this.logger.error('[mailer]: 模板不可为空');
       throw new MidwayError('template not allow null.', 'NOT_ALLOW_NULL');
     }
 
-    html = ejs.render(tplString, record);
+    return templateStringRender[this.config.template](template, record);
+  }
 
-    return html;
+  /**
+   * 渲染指定路径的模板
+   * @param path 模板路径
+   * @param record 数据
+   * @private
+   */
+  private async renderPath(path: string, record: Record<string, unknown> = {}) {
+    return templateRender[this.config.template](path, record);
   }
 
   /**
@@ -49,28 +57,39 @@ export class MailerService {
   async send(
     message: SendMailOptions,
     templateOptions?: {
-      path: string;
+      path?: string;
+      templateStr?: string;
       record?: Record<string, unknown>;
       htmlStr?: string;
     }
   ) {
     let htmlStr: string = templateOptions?.htmlStr;
 
-    // 渲染模板，配置开启了模板渲染并传入模板路径时进行渲染，传入了htmlStr直接使用
-    if (this.config.template && templateOptions?.path && !htmlStr) {
-      const { path, record } = templateOptions;
-      const buffer = await readFile(path);
-      const template = buffer.toString();
-      // 使用模板引擎，先进行渲染
-      htmlStr = this.renderTemplate(template, record);
+    if (!templateOptions?.htmlStr) {
+      // html字符串，不需要渲染直接发送
+      if (templateOptions?.templateStr) {
+        // 使用模板字符串进行渲染
+        htmlStr = await this.renderString(
+          templateOptions.templateStr,
+          templateOptions?.record
+        );
+      } else if (templateOptions?.path) {
+        // 通过路径进行渲染
+        htmlStr = await this.renderPath(
+          templateOptions.path,
+          templateOptions?.record
+        );
+      }
     }
 
     // 消息对象
     const msg = {
       ...message,
-      from: this.config.sender
+      from: message.from
+        ? message.from
+        : this.config.sender
         ? `${this.config.sender} <${this.config.auth.user}>`
-        : message.from,
+        : this.config.auth.user,
       html: htmlStr,
       subject: this.config.prefix
         ? this.config.customSubjectRender?.(
