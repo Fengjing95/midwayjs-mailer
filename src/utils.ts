@@ -1,4 +1,5 @@
 import { TemplateType, ITemplateRender } from '../index';
+import { readFile } from 'node:fs/promises';
 
 // ejs 模板渲染
 const ejsRender: ITemplateRender = async (path, env = {}) => {
