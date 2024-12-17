@@ -25,17 +25,17 @@ export const templateRender: Record<TemplateType, ITemplateRender> = {
 }
 
 // ejs 模板字符串渲染
-const ejsRender: ITemplateRender = async (tpl, env = {}) => {
+const ejsRenderString: ITemplateRender = async (tpl, env = {}) => {
   return import('ejs').then(ejs => ejs.render(tpl, env))
 }
 
 // pug 模板字符串渲染
-const pugRender: ITemplateRender = async (tpl, env = {}) => {
+const pugRenderString: ITemplateRender = async (tpl, env = {}) => {
   return import('pug').then(pug => pug.render(tpl, env))
 }
 
 // nunjucks 模板字符串渲染
-const nunjucksRender: ITemplateRender = async (tpl, env = {}) => {
+const nunjucksRenderString: ITemplateRender = async (tpl, env = {}) => {
   return import('nunjucks').then(nunjucks => nunjucks.renderString(tpl, env))
 }
 
