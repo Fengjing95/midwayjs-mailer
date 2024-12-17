@@ -17,9 +17,31 @@ const nunjucksRender: ITemplateRender = async (path, env = {}) => {
   return import('nunjucks').then(nunjucks => nunjucks.renderString(template, env))
 }
 
-// 模板渲染方法映射
+// 模板路径渲染方法映射
 export const templateRender: Record<TemplateType, ITemplateRender> = {
   [TemplateType.EJS]: ejsRender,
   [TemplateType.PUG]: pugRender,
   [TemplateType.NUNJUCKS]: nunjucksRender,
+}
+
+// ejs 模板字符串渲染
+const ejsRender: ITemplateRender = async (tpl, env = {}) => {
+  return import('ejs').then(ejs => ejs.render(tpl, env))
+}
+
+// pug 模板字符串渲染
+const pugRender: ITemplateRender = async (tpl, env = {}) => {
+  return import('pug').then(pug => pug.render(tpl, env))
+}
+
+// nunjucks 模板字符串渲染
+const nunjucksRender: ITemplateRender = async (tpl, env = {}) => {
+  return import('nunjucks').then(nunjucks => nunjucks.renderString(tpl, env))
+}
+
+// 模板字符串渲染方法映射
+export const templateStringRender: Record<TemplateType, ITemplateRender> = {
+  [TemplateType.EJS]: ejsRenderString,
+  [TemplateType.PUG]: pugRenderString,
+  [TemplateType.NUNJUCKS]: nunjucksRenderString,
 }
