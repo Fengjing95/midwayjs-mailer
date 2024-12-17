@@ -8,7 +8,7 @@ import {
 } from '@midwayjs/core';
 import { Transporter, SendMailOptions } from 'nodemailer';
 import { MailerConfigurationType } from '../';
-import { templateRender } from './util';
+import { templateRender, templateStringRender } from './util';
 
 @Provide()
 export class MailerService {
@@ -27,8 +27,8 @@ export class MailerService {
    * @param record 数据
    * @private
    */
-  private async rednerString(template: string, record: Record<string, unknown> = {}) {
-    if (!tplString) {
+  private async renderString(template: string, record: Record<string, unknown> = {}) {
+    if (!template) {
       this.logger.error('[mailer]: 模板不可为空');
       throw new MidwayError('template not allow null.', 'NOT_ALLOW_NULL');
     }
@@ -66,10 +66,10 @@ export class MailerService {
     // html字符串，不需要渲染直接发送
       if(templateOptions?.templateStr) {
         // 使用模板字符串进行渲染
-        htmlStr = await this.renderString(templateOptions.templateStr, record);
+        htmlStr = await this.renderString(templateOptions.templateStr, templateOptions?.record);
       } else if(templateOptions?.path) {
         // 通过路径进行渲染
-        htmlStr = await this.renderPath(templateOptions.path, record)
+        htmlStr = await this.renderPath(templateOptions.path, templateOptions?.record)
       }
     }
 
