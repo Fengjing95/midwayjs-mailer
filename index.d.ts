@@ -1,7 +1,11 @@
 import { Options } from 'nodemailer/lib/smtp-connection';
 export * from './dist/index';
 
-export type TemplateType = 'ejs';
+export enum TemplateType {
+  EJS = 'ejs',
+  PUG = 'pug',
+  NUNJUCKS = 'nunjucks',
+};
 
 export type MailerConfigurationType = {
   prefix?: string;
