@@ -8,7 +8,6 @@ import {
 } from '@midwayjs/core';
 import { Transporter, SendMailOptions } from 'nodemailer';
 import { MailerConfigurationType } from '../';
-import { readFile } from 'node:fs/promises';
 import { templateRender } from './util';
 
 @Provide()
