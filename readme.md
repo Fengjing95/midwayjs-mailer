@@ -93,7 +93,7 @@ export default {
         user: 'xxx@xx.com',
         pass: 'xxx'
     },
-    template: TemplateType.EJS,
+    template: 'ejs', // 指定模板引擎
   },
 } as MidwayConfig;
 

@@ -17,11 +17,12 @@ describe('/test/index.test.ts', () => {
     await mailerService.send(
       {
         subject: 'templateMail',
-        from: '小枫 <youemail@qq.com>',
-        to: 'xxxx@qq.com',
+        to: '1984779164@qq.com',
       },
       {
         path: join(__dirname, './fixtures/templateMail/src/template/order.ejs'),
+        // path: join(__dirname, './fixtures/templateMail/src/template/order.pug'),
+        // path: join(__dirname, './fixtures/templateMail/src/template/order.njk'),
         record: { orderId: 'BL20241208160753' },
       }
     );
