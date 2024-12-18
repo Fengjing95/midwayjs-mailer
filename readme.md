@@ -1,5 +1,8 @@
 ### MidwayJS-Mailer
 
+![last update](https://img.shields.io/npm/last-update/%40feng-j%2Fmidwayjs-mailer)
+![last commit](https://img.shields.io/github/last-commit/Fengjing95/midwayjs-mailer)
+
 用于在MidwayJS项目中快捷使用邮件发送功能。
 
 #### 活动
