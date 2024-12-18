@@ -2,6 +2,10 @@
 
 用于在MidwayJS项目中快捷使用邮件发送功能。
 
+#### 活动
+
+![Alt](https://repobeats.axiom.co/api/embed/d7b7dd1bc41bfe282a988c96af3b10bb7bbe6ee0.svg "Repobeats analytics image")
+
 #### 安装使用
 
 ```bash
